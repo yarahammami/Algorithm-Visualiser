@@ -29,7 +29,7 @@ function renderBars(array){
         let bar = document.createElement("div");
         bar.classList.add("bar");
         bar.style.height = array[i] * heightFactor + "px";
-        //bar.style.backgroundColor = `rgb(${randomNum(0,255)}, ${randomNum(0,255)},${randomNum(0,255)})`;
+        bar.style.backgroundColor = `rgb(${randomNum(0,255)}, ${randomNum(0,255)},${randomNum(0,255)})`;
         bars_container.appendChild(bar);
         
     }
@@ -58,7 +58,7 @@ let bars = document.getElementsByClassName("bar");
             if(array[j] > array[j+1]){
                 for (let k = 0; k < bars.length; k++) {
                     if(k !== j && k !== j +1){
-                        bars[k].style.backgroundColor = "aqua";
+                        //bars[k].style.backgroundColor = Math.floor(Math.random()*16777215).toString(16);
                     }
                     
                 }
@@ -74,12 +74,37 @@ let bars = document.getElementsByClassName("bar");
                 await sleep(10);
             }
         }
-        await sleep(10);
+        //await sleep(10);
     }
     return array;
 }
 
+
+async function insertionSort(array){
+    let bars = document.getElementsByClassName("bar");
+    let i, value, index;
+  for (i = 0; i < array.length-1; i++) {
+    await sleep(10);
+    value = array[i];
+    index = i;
+    while (index >= 0 && array[index - 1] > value) {
+        bars[index].style.height = array[index] * heightFactor + "px";
+        bars[index+1].style.height =  array[index+1] * heightFactor + "px";
+      array[index] = array[index - 1];
+      index--;
+    }
+    array[index] = value;
+  }
+ 
+   return array;
+}
+
 sort_btn.addEventListener("click", function(){
     let sorted_array = bubbleSort(unsorted_array);
+    console.log(sorted_array);
+});
+
+insertion_btn.addEventListener("click", function(){
+    let sorted_array = insertionSort(unsorted_array);
     console.log(sorted_array);
 });
