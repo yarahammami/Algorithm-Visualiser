@@ -56,12 +56,6 @@ let bars = document.getElementsByClassName("bar");
     for(let i = 0; i < array.length; i++){
         for(let j = 0; j < array.length-i-1; j++){
             if(array[j] > array[j+1]){
-                for (let k = 0; k < bars.length; k++) {
-                    if(k !== j && k !== j +1){
-                        //bars[k].style.backgroundColor = Math.floor(Math.random()*16777215).toString(16);
-                    }
-                    
-                }
                 let temp = array[j];
                 array[j] = array[j+1];
                 array[j+1] = temp;
@@ -82,21 +76,19 @@ let bars = document.getElementsByClassName("bar");
 
 async function insertionSort(array){
     let bars = document.getElementsByClassName("bar");
-    let i, value, index;
-  for (i = 0; i < array.length-1; i++) {
-    await sleep(10);
-    value = array[i];
-    index = i;
-    while (index >= 0 && array[index - 1] > value) {
-        bars[index].style.height = array[index] * heightFactor + "px";
-        bars[index+1].style.height =  array[index+1] * heightFactor + "px";
-      array[index] = array[index - 1];
-      index--;
-    }
-    array[index] = value;
-  }
- 
-   return array;
+    for (let i = 1; i < array.length; i++) {
+        let j = i - 1;
+        let temp = array[i];
+        await sleep(10);
+        while (j >= 0 && array[j] > temp) {
+          bars[j].style.height = array[j] * heightFactor + "px";
+          array[j + 1] = array[j];
+          bars[j+1].style.height =  array[j+1] * heightFactor + "px";
+          j--;
+        }
+        array[j+1] = temp;
+      }
+      return array;
 }
 
 sort_btn.addEventListener("click", function(){
