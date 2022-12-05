@@ -68,7 +68,7 @@ let bars = document.getElementsByClassName("bar");
                 await sleep(10);
             }
         }
-        //await sleep(10);
+        await sleep(10);
     }
     return array;
 }
@@ -76,6 +76,7 @@ let bars = document.getElementsByClassName("bar");
 
 async function insertionSort(array){
     let bars = document.getElementsByClassName("bar");
+
     for (let i = 1; i < array.length; i++) {
         let j = i - 1;
         let temp = array[i];
@@ -89,7 +90,42 @@ async function insertionSort(array){
         array[j+1] = temp;
       }
       return array;
+
+//     let i, value, j;
+//   for (i = 0; i < array.length - 1; i++) {
+//     await sleep(10);
+//     value = array[i];
+//     j = i;
+//     while (j > 0 && array[j - 1] > value) {
+//         array[j] = array[j - 1];
+//         j--;
+//        bars[j].style.height = array[j] * heightFactor + "px";
+//         bars[j+1].style.height =  array[j+1] * heightFactor + "px";
+      
+      
+//     }
+//     array[j] = value;
+//   }
+ 
+//    return array;
+
+for (let i = 1; i < array.length; i++) {
+    let j = i - 1;
+    let temp = array[i];
+    await sleep(10);
+    while (j >= 0 && array[j] > temp) {
+       
+        bars[j].style.height = array[j] * heightFactor + "px";
+        array[j + 1] = array[j];
+        bars[j+1].style.height =  array[j+1] * heightFactor + "px";
+        j--;
+    }
+    array[j+1] = temp;
+  }
+  return array;
+
 }
+
 
 sort_btn.addEventListener("click", function(){
     let sorted_array = bubbleSort(unsorted_array);
